@@ -22,7 +22,7 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
   ext: 'png'
 }).addTo(map);
 
-
+/*
 /* =====================
 
 Lab 1 - GeoJSON + Review
@@ -43,101 +43,112 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 ===================== */
-
-
-// Task 1.1 - add the five markers from squares.json to the map using the methods
-// we've used so far in class: _.map or _.each, forEach()
-
-
-// Task 1.2 - remove squares.json from the map
-// iterating over each marker  using map.removeLayer(point)
-
-
-// markers = squaresJson.map((point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map);
-// })
 //
 //
-// markers.forEach((point) => {
-//   map.removeLayer(point)})
+// // Task 1.1 - add the five markers from squares.json to the map using the methods
+// // we've used so far in class: _.map or _.each, forEach()
+//
+//
+// // Task 1.2 - remove squares.json from the map
+// // iterating over each marker  using map.removeLayer(point)
+//
+//
+// // markers = squaresJson.map((point) => {
+// //   return L.marker([point.LAT, point.LNG]).addTo(map);
+// // })
+// //
+// //
+// // markers.forEach((point) => {
+// //   map.removeLayer(point)})
+//
+//
+//
+// // layer.addTo(map);
+// // map.removeLayer(squaresPoly)
+//
+//
+// // _.forEach(squaresJson,(point) => {
+// //   return L.marker([point.LAT, point.LNG]).addTo(map)
+// // });
+//
+//
+//
+//
+//
+//
+//
+//
+// // task 2.1 - add squares.geojson to the map
+// //  Try: L.geoJSON().addTo(map);
+var layer = L.geoJSON(squaresGeoJson).addTo(map);
+//
+//
+// // task 2.2 - remove squares.geojson from the map
+// // Try: map.removeLayer()
+map.removeLayer(layer);
+//
+//
+//
+// // task 3 - filter by some property on squares.geojson
+//
+//
+var indegoLayer = L.geoJSON(squaresGeoJson, {
+    filter: function(feature) {
+        return feature.properties.INDEGO_STATION;
+    }
+}).addTo(map);
+//
+map.removeLayer(indegoLayer);
+//
+//
+// // task 4.1 - add squaresPoly.geojson to the map
+// // task 4.2 - add conditional coloring to squaresPoly.geojson
+//
 
 
 
-// layer.addTo(map);
-// map.removeLayer(squaresPoly)
-
-
-// _.forEach(squaresJson,(point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map)
+var layerColor = L.geoJSON(squaresPoly, {style: function(feature) {
+  switch (feature.properties.TYPE) {
+    case "circle": return {color: "#ff0000"};
+    case "square": return {color: "#0000ff"};
+  }
+}
+}).addTo(map);
+//
+//
+// // task 5 - add two buttons to the sidebar from javascript using jquery: (1) add layer (2) remove layer
+//
+//
+// $('<br><input type="button" id="btnToAdd" value="add" />').appendTo($(".sidebar"));
+//
+// $('<br><input type="button" id="btnToRemove" value="remove" />').appendTo($(".sidebar"));
+//
+//
+// $( "#btnToAdd" ).click(function() {
+//   layer.addTo(map);
 // });
-
-
-
-
-
-
-
-
-// task 2.1 - add squares.geojson to the map
-//  Try: L.geoJSON().addTo(map);
-
-
-// task 2.2 - remove squares.geojson from the map
-// Try: map.removeLayer()
-
-
-
-// task 3 - filter by some property on squares.geojson
-
-
-// L.geoJSON(squaresGeoJson, {
-//     filter: function(feature) {
-//         return feature.properties.DOB_NAMESAKE == 1674;
-//     }
-// }).addTo(map);
-
-
-
-
-// task 4.1 - add squaresPoly.geojson to the map
-// task 4.2 - add conditional coloring to squaresPoly.geojson
-
-
-
-
-// task 5 - add two buttons to the sidebar from javascript using jquery: (1) add layer (2) remove layer
-
-
-$('<br><input type="button" id="btnToAdd" value="add" />').appendTo($(".sidebar"));
-
-$('<br><input type="button" id="btnToRemove" value="remove" />').appendTo($(".sidebar"));
-
-
-$( "#btnToAdd" ).click(function() {
-  layer.addTo(map);
-});
-
-
-$( "#btnToRemove" ).click(function() {
-  map.removeLayer(layer);
-});
-
-
-
-
-
+//
+//
+// $( "#btnToRemove" ).click(function() {
+//   map.removeLayer(layer);
+// });
+//
+//
+//
+//
+//
+// // var myStyle = function(feature) {
+// //   if (feature.properties.INDEGO_STATION == true) {
+// //   return {fillColor: 'red'};
+// // } else if (feature.properties.COLLDAY == "MON") {
+// // return {fillColor: 'green'}
+// // } else return {fillColor: 'yellow'}
+// // };
+//
+//
 // var myStyle = function(feature) {
 //   if (feature.properties.INDEGO_STATION == true) {
-//   return {fillColor: 'red'};
-// } else if (feature.properties.COLLDAY == "MON") {
-// return {fillColor: 'green'}
-// } else return {fillColor: 'yellow'}
+//     console.log("trues")
+//   return {fillColor: 'green'};
+// } else return {fillColor: 'red'}
 // };
-
-
-var myStyle = function(feature) {
-  if (feature.properties.INDEGO_STATION == true) {
-    console.log("trues")
-  return {fillColor: 'green'};
-} else return {fillColor: 'red'}
-};

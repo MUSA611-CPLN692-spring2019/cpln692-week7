@@ -126,11 +126,19 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
-var featureGroup
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
+var featureGroup;
 
-var myStyle = function(feature) {
-  return {};
+var myStyle = function(feature) {switch (feature.properties.COLLDAY) {
+  case "MON": return {fillColor: '#1f29b2'};
+  case "TUE": return {fillColor: '#e7b20d'};
+  case "WED": return {fillColor: '#6e9275'};
+  case "THU": return {fillColor: '#311c74'};
+  case "FRI": return {fillColor: '#c33131'};
+  case "SAT": return {fillColor: 'grey'};
+  case "SUN": return {fillColor: 'grey'};
+}
+
 };
 
 var showResults = function() {
@@ -160,7 +168,8 @@ var eachFeatureFunction = function(layer) {
 };
 
 var myFilter = function(feature) {
-  return true;
+  console.log(feature.properties.COLLDAY);
+  return feature.properties.COLLDAY != " ";
 };
 
 $(document).ready(function() {
