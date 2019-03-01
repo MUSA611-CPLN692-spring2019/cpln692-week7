@@ -23,7 +23,6 @@ Load the dataset into our application. Set the 'dataset' variable to the address
 'philadelphia-garbage-collection-boundaries.geojson' here:
 https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson
 
-
 You should now have GeoJSON data projected onto your map!
 
 ## Task 2 - our first choropleth map
@@ -126,11 +125,18 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
-var featureGroup
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
+var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+    switch (feature.properties.COLLDAY) {
+      case 'MON': return {color: '#FF0000'};
+      case 'TUE': return {color: '#FF9900'};
+      case 'WED': return {color: '#FFFF00'};
+      case 'THU': return {color: '#00FF00'};
+      case 'FRI': return {color: '#0000FF'};
+      default: return {color: '#000000'};
+    }
 };
 
 var showResults = function() {
@@ -155,12 +161,23 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
+    var dotw = function(layerFeature) {
+      switch(layerFeature.properties.COLLDAY) {
+        case 'MON': return 'Monday';
+        case 'TUE': return 'Tuesday';
+        case 'WED': return 'Wednesday';
+        case 'THU': return 'Thursday';
+        case 'FRI': return 'Friday';
+        default: return 'unknown';
+      }
+    };
+    $("span.day-of-week").text(dotw(layer.feature));
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  return feature.properties.COLLDAY != ' ';
 };
 
 $(document).ready(function() {

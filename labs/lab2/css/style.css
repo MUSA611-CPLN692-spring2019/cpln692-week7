@@ -31,4 +31,45 @@ p.main {
   position: absolute;
   background-color: #fff;
   z-index: 2000;
+  padding: 10px;
+  right: 20px;
+  bottom: 20px;
+}
+
+#legend-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  position: relative;
+  font-size: 20px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+li::before {
+  padding-right: 10px;
+  content: "\25A0";
+  font-size: 1.5em;
+}
+
+#mon::before {
+  color: #FF0000;
+}
+
+#tue::before {
+  color: #FF9900;
+}
+
+#wed::before {
+  color: #FFFF00;
+}
+
+#thu::before {
+  color: #00FF00;
+}
+
+#fri::before {
+  color: #0000FF;
 }
