@@ -1,4 +1,4 @@
-{
+var squaresPoly = {
   "type": "FeatureCollection",
   "features": [
     {

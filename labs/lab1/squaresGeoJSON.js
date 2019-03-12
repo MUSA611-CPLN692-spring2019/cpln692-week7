@@ -1,4 +1,4 @@
-{
+var squaresGeoJSON = {
   "type": "FeatureCollection",
   "features": [
     {

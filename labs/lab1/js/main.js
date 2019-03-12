@@ -29,9 +29,30 @@ Lab 1 - GeoJSON + Review
 
 
 The purpose of this lab is to introduce geoJSON by comparing it to the
-json objects we've used this far to generate points.
+json objects we've used thus far to generate points.
 
-Take a look at `squares.json`, `squares.geojson`, and `squaresPoly.geojson`
+Take a look at the data files in this respository:
+`squares.js`,
+`squares.geojson`,
+`squaresGeoJSON.js`
+`squaresPoly.geojson`
+`squaresPolyGeoJSON.js`
+
+It is important to understand how these data files differ.
+
+The variables are defined in the .js files as we have been using them in class so far.
+They can be referred to directly by their variable names on the first line in the files.
+
+Their are two GeoJSON objects (squaresGeoJSON.js and squaresPolyGeoJSON.js)
+that are defined in a similar way and given a variable name that can be referred to without
+an AJAX call because they are available locally in this repository.
+
+The two geojson files must be called using ajax using their URL on github, ie:
+https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/cpln692-week7/master/labs/lab1/squares.geojson
+
+(to access this link on github, make sure you hit `raw` when you navigate to the folder)
+
+
 
 
 And read up on the structure of geoJSON, there are lots of great resources:
@@ -45,11 +66,12 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 ===================== */
 
 
-// Task 1.1 - add the five markers from squares.json to the map using the methods
+// Task 1.1 - add the five markers from squares.js to the map using the methods
 // we've used so far in class: _.map or _.each, forEach()
+// You can call the variable directly as the .js file declares the `squaresJson` variable
 
 
-// Task 1.2 - remove squares.json from the map
+// Task 1.2 - remove `squaresJson` from the map
 // iterating over each marker  using map.removeLayer(point)
 
 
@@ -74,15 +96,14 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 
-
-
-
-
-// task 2.1 - add squares.geojson to the map
+// task 2.1 - add the squares.geojson to the map
+// Try to understand the difference between using ajax to call
+// `squares.geojson` versus refering to the variable `squaresGeoJSON` as defined
+// in the `squaresGeoJSON.js` file in this repository.
 //  Try: L.geoJSON().addTo(map);
 
 
-// task 2.2 - remove squares.geojson from the map
+// task 2.2 - remove the geoJSON from the map
 // Try: map.removeLayer()
 
 
