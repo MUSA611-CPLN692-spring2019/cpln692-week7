@@ -4,7 +4,7 @@ Leaflet Configuration
 
 var map = L.map('map', {
   center: [40.000, -75.1090],
-  zoom: 11
+  zoom: 8
 });
 var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -21,11 +21,20 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 
 Load the dataset into our application. Set the 'dataset' variable to the address for
 'philadelphia-garbage-collection-boundaries.geojson' here:
+
+
 https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson
-
-
 You should now have GeoJSON data projected onto your map!
 
+===== */
+
+
+
+
+
+
+
+/* =====================
 ## Task 2 - our first choropleth map
 
 Style each garbage collection area with a different color depending on what day
@@ -124,14 +133,31 @@ Use Underscore to perform analysis on this GeoJSON data: which day of
 the week was the most common for garbage removal? Update the original state
 of the application to report this information.
 
-===================== */
 
-var dataset = ""
-var featureGroup
+===================== */
+var dataset = 'https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson'
+
+var featuregroup = () => {
+    $.ajax(dataset).done(console.log)
+}
+
+console.log(featuregroup.feature)
+
 
 var myStyle = function(feature) {
   return {};
 };
+
+
+function(feature) {
+        switch (feature.properties.COLLDAY) {
+            case 'circle': return {color: "red"};
+            case 'square': return {color: "#0000ff"};
+        }
+    }
+}).addTo(map);
+
+
 
 var showResults = function() {
   /* =====================

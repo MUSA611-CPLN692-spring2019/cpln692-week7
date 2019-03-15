@@ -56,19 +56,19 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 // markers = squaresJson.map((point) => {
 //   return L.marker([point.LAT, point.LNG]).addTo(map);
 // })
-//
-//
+
+
 // markers.forEach((point) => {
 //   map.removeLayer(point)})
 
 
 
-// layer.addTo(map);
-// map.removeLayer(squaresPoly)
+//layer.addTo(map);
+//map.removeLayer(squaresPoly)
 
 
-// _.forEach(squaresJson,(point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map)
+//_.forEach(squaresJson,(point) => {
+// return L.marker([point.LAT, point.LNG]).addTo(map)
 // });
 
 
@@ -79,20 +79,20 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 // task 2.1 - add squares.geojson to the map
-//  Try: L.geoJSON().addTo(map);
+//var layer = L.geoJSON(squaresGeoJson).addTo(map);
 
 
 // task 2.2 - remove squares.geojson from the map
-// Try: map.removeLayer()
+//map.removeLayer(layer);
 
 
 
 // task 3 - filter by some property on squares.geojson
 
 
-// L.geoJSON(squaresGeoJson, {
+//L.geoJSON(squaresGeoJson, {
 //     filter: function(feature) {
-//         return feature.properties.DOB_NAMESAKE == 1674;
+//         return !feature.properties.INDEGO_STATION;
 //     }
 // }).addTo(map);
 
@@ -100,13 +100,27 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 // task 4.1 - add squaresPoly.geojson to the map
+//var myStyle = {
+//  "color": "#ff7800",
+//  "weight": 5,
+//  "opacity": 0.65}
+
+//var layerPoly = L.geoJSON(squaresPoly, {style: myStyle}).addTo(map);
+
 // task 4.2 - add conditional coloring to squaresPoly.geojson
 
-
+//L.geoJSON(squaresPoly, {
+//    style: function(feature) {
+//        switch (feature.properties.TYPE) {
+//            case 'circle': return {color: "#ff0000"};
+//            case 'square': return {color: "#0000ff"};
+//        }
+//    }
+//}).addTo(map);
 
 
 // task 5 - add two buttons to the sidebar from javascript using jquery: (1) add layer (2) remove layer
-
+var layer = L.geoJSON(squaresPoly, {style: myStyle}).addTo(map);
 
 $('<br><input type="button" id="btnToAdd" value="add" />').appendTo($(".sidebar"));
 
