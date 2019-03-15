@@ -3,7 +3,7 @@ Leaflet Configuration
 ===================== */
 
 var map = L.map('map', {
-  center: [40.000, -75.1090],
+  center: [41.878, -87.630],
   zoom: 11
 });
 var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {

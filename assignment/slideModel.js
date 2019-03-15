@@ -14,3 +14,19 @@ var slideExample = {
  * representing a deck of slides (nothing exotic is necessary!)
  */
 //var slideDeck = [slideExample1, slideExample2, slideExample3]
+
+var slide1 = {
+  slideNumber: 1,
+  title: "All The Divvy Stations"
+};
+var slide2 = {
+  slideNumber: 2,
+  title: "The Divvy Stations in Service",
+  filter: function(feature) {return feature.properties.Status == 'In Service';}
+};
+var slide3 = {
+  slideNumber: 3,
+  title: "The Divvy Stations with Large Capacity",
+  filter: function(feature) {return feature.properties['Docks in Service'] >= '15';}
+};
+var slideDeck = [slide1, slide2, slide3];
