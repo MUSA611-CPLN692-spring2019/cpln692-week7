@@ -125,15 +125,36 @@ the week was the most common for garbage removal? Update the original state
 of the application to report this information.
 
 ===================== */
+//Task 1
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 
-var dataset = ""
-var featureGroup
+var featureGroup;
 
+//Task 2
 var myStyle = function(feature) {
-  return {};
+  switch(feature.properties.COLLDAY) {
+    case 'MON': return {fillColor: 'red'};
+    case 'TUE': return {fillColor: 'orange'};
+    case 'WED': return {fillColor: 'yellow'};
+    case 'THU': return {fillColor: 'green'};
+    case 'FRI': return {fillColor: 'blue'};
+    default: return {fillColor: 'black'};
+  }
 };
 
-var showResults = function() {
+//Task 4
+var showDay = function(feature) {
+    switch(feature.properties.COLLDAY) {
+      case 'MON': return 'Monday';
+      case 'TUE': return 'Tuesday';
+      case 'WED': return 'Wednesday';
+      case 'THU': return 'Thursday';
+      case 'FRI': return 'Friday';
+      default: return 'Not Identified';
+    }
+  };
+
+var showResults = function(result) {
   /* =====================
   This function uses some jQuery methods that may be new. $(element).hide()
   will add the CSS "display: none" to the element, effectively removing it
@@ -144,6 +165,7 @@ var showResults = function() {
   $('#intro').hide();
   // => <div id="results">
   $('#results').show();
+  $('.day-of-week').text(result);
 };
 
 
@@ -155,12 +177,13 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
-    showResults();
+    showResults(showDay(layer.feature));
   });
 };
 
+//Task 3
 var myFilter = function(feature) {
-  return true;
+  return feature.properties.COLLDAY !== "" ;
 };
 
 $(document).ready(function() {

@@ -47,19 +47,20 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 // Task 1.1 - add the five markers from squares.json to the map using the methods
 // we've used so far in class: _.map or _.each, forEach()
-
+var markers = _.map(squaresJson,function(p){
+  L.marker([p.LAT,p.LNG]).addTo(map);
+});
+markers();
 
 // Task 1.2 - remove squares.json from the map
 // iterating over each marker  using map.removeLayer(point)
 
 
-// markers = squaresJson.map((point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map);
-// })
-//
-//
-// markers.forEach((point) => {
-//   map.removeLayer(point)})
+markers = squaresJson.map((point) => {
+  return L.marker([point.LAT, point.LNG]).addTo(map);
+});
+markers.forEach((point) => {
+  map.removeLayer(point)});
 
 
 
@@ -81,10 +82,12 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 // task 2.1 - add squares.geojson to the map
 //  Try: L.geoJSON().addTo(map);
 
+var layer = L.geoJSON(squaresGeoJson).addTo(map);
 
 // task 2.2 - remove squares.geojson from the map
 // Try: map.removeLayer()
 
+map.removeLayer(layer)
 
 
 // task 3 - filter by some property on squares.geojson
@@ -96,11 +99,23 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 //     }
 // }).addTo(map);
 
+L.geoJSON(squaresGeoJson, {
+  filter: function(feature) {
+    return feature.properties.TYPE == 'circle';
+  }
+}).addTo(map)
 
 
 
 // task 4.1 - add squaresPoly.geojson to the map
 // task 4.2 - add conditional coloring to squaresPoly.geojson
+var layer = L.geoJSON(squaresPoly, {
+  style: function(feature){
+    switch (feature.properties.TYPE) {
+      case 'circle': return {color: "#225533"};
+      case 'square': return {color: "#882233"};
+    }
+  }}).addTo(map);
 
 
 
@@ -133,11 +148,3 @@ $( "#btnToRemove" ).click(function() {
 // return {fillColor: 'green'}
 // } else return {fillColor: 'yellow'}
 // };
-
-
-var myStyle = function(feature) {
-  if (feature.properties.INDEGO_STATION == true) {
-    console.log("trues")
-  return {fillColor: 'green'};
-} else return {fillColor: 'red'}
-};
