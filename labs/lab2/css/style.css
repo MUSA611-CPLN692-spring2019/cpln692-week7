@@ -29,6 +29,34 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  background-color: #eeeeee;
   z-index: 2000;
+  right: 0;
+  margin:25px;
 }
+
+#legendTitle {
+  align-self: center;
+}
+
+.legBox {
+  display:inline;
+  padding-left: : 10px;
+  border: 1px;
+  border-color: '#000000';
+  list-style: none;
+}
+
+li::before {
+  padding-right: 10px;
+  content: "\25A0";
+  font-size: 1.5em;
+}
+
+#mon::before {color: #1f29b2; opacity: .5;}
+#tue::before {color: #e7b20d; opacity: .5;}
+#wed::before {color: #6e9275; opacity: .5;}
+#thu::before {color: #311c74; opacity: .5;}
+#fri::before {color: #c33131; opacity: .5;}
+#sat::before {color: grey; opacity: .5;}
+#sun::before {color: grey; opacity: .5;}

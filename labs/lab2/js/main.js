@@ -141,7 +141,7 @@ var myStyle = function(feature) {switch (feature.properties.COLLDAY) {
 
 };
 
-var showResults = function() {
+var showResults = function(day) {
   /* =====================
   This function uses some jQuery methods that may be new. $(element).hide()
   will add the CSS "display: none" to the element, effectively removing it
@@ -152,8 +152,20 @@ var showResults = function() {
   $('#intro').hide();
   // => <div id="results">
   $('#results').show();
+  $('.day-of-week').text(day);
 };
 
+var dayOfWeek = function(feat) {
+  switch (feat.properties.COLLDAY) {
+    case "MON": return "Monday";
+    case "TUE": return "Tuesday";
+    case "WED": return "Wednesday";
+    case "THU": return "Thursday";
+    case "FRI": return "Friday";
+    case "SAT": return "Saturday";
+    case "SUN": return "Sunday";
+  }
+};
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
@@ -163,7 +175,7 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
-    showResults();
+    showResults(dayOfWeek(layer.feature));
   });
 };
 
