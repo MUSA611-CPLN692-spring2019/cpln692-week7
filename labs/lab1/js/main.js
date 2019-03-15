@@ -53,13 +53,13 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 // iterating over each marker  using map.removeLayer(point)
 
 
-// markers = squaresJson.map((point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map);
-// })
+ markers = squaresJson.map((point) => {
+   return L.marker([point.LAT, point.LNG]).addTo(map);
+ })
 //
 //
-// markers.forEach((point) => {
-//   map.removeLayer(point)})
+ markers.forEach((point) => {
+   map.removeLayer(point)})
 
 
 
@@ -79,29 +79,38 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 // task 2.1 - add squares.geojson to the map
-//  Try: L.geoJSON().addTo(map);
+L.geoJSON(squaresGeoJson).addTo(map)
 
 
 // task 2.2 - remove squares.geojson from the map
-// Try: map.removeLayer()
-
+//map.removeLayer(squareLayer)
 
 
 // task 3 - filter by some property on squares.geojson
 
 
-// L.geoJSON(squaresGeoJson, {
-//     filter: function(feature) {
-//         return feature.properties.DOB_NAMESAKE == 1674;
-//     }
-// }).addTo(map);
+ L.geoJSON(squaresGeoJson, {
+     filter: function(feature) {
+         return feature.properties.INDEGO_STATION;
+     }
+ }).addTo(map);
+
 
 
 
 
 // task 4.1 - add squaresPoly.geojson to the map
-// task 4.2 - add conditional coloring to squaresPoly.geojson
+L.geoJSON(squaresPoly).addTo(map)
 
+// task 4.2 - add conditional coloring to squaresPoly.geojson
+var layer = L.geoJSON(squaresPoly, {
+  style: function(feature) {
+    switch (feature.properties.TYPE) {
+      case "circle": return {color: "#ff0000"};
+      case "square": return {color: "#0000ff"};
+    }
+  }
+})
 
 
 

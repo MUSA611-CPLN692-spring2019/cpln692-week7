@@ -126,11 +126,18 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup
 
 var myStyle = function(feature) {
-  return {};
+  switch (feature.properties.COLLDAY) {
+    case "MON": return {color: '#b3e2cd'};
+    case "TUE": return {color: '#fdcdac'};
+    case "WED": return {color: '#cbd5e8'};
+    case "THU": return {color: '#f4cae4'};
+    case 'FRI': return {color: '#e6f5c9'};
+    default: return {color: '#f2f2f2'}
+  }
 };
 
 var showResults = function() {
@@ -146,6 +153,27 @@ var showResults = function() {
   $('#results').show();
 };
 
+var changeDayOfWeek = function(day){
+  var display;
+  switch (day) {
+    case "MON":
+      display = "Monday";
+      break;
+    case "TUE":
+      display = "Tuesday";
+      break;
+    case "WED":
+      display = "Wednesday";
+      break;
+    case "THU":
+      display =  "Thusday";
+      break;
+    case 'FRI':
+      display =  "Friday";
+      break;
+  }
+  $('.day-of-week').text(display)
+}
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
@@ -155,11 +183,15 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
+    changeDayOfWeek(layer.feature.properties.COLLDAY)
     showResults();
   });
 };
 
 var myFilter = function(feature) {
+  if(feature.properties.COLLDAY != 'MON' && feature.properties.COLLDAY != 'TUE' && feature.properties.COLLDAY != 'WED'  && feature.properties.COLLDAY != 'THU'  && feature.properties.COLLDAY != 'FRI' ){
+    return false;
+  }
   return true;
 };
 
