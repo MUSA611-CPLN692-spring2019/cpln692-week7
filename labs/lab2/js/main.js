@@ -14,6 +14,13 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
   ext: 'png'
 }).addTo(map);
 
+let days = {
+  'MON':{color:'red',   full:'Monday'},
+  'TUE':{color:'orange',full:'Tuesday'},
+  'WED':{color:'green' ,full:'Wednesday'},
+  'THU':{color:'blue'  ,full:'Thursday'},
+  'FRI':{color:'purple',full:'Friday'}
+}
 
 /* =====================
 
@@ -21,8 +28,12 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 
 Load the dataset into our application. Set the 'dataset' variable to the address for
 'philadelphia-garbage-collection-boundaries.geojson' here:
-https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson
 
+===================== */
+
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
+
+/* =====================
 
 You should now have GeoJSON data projected onto your map!
 
@@ -46,6 +57,17 @@ For our myStyle function, we want a different fillColor to be returned depending
 on the day of the week. If you need help, review http://leafletjs.com/examples/geojson.html for
 working examples of this function.
 
+===================== */
+
+var myStyle = function(feature) {
+  return {
+    color    : 'black',
+    fillColor: days[feature.properties.COLLDAY].color
+  };
+};
+
+/* =====================
+
 ## Task 3
 
 You might have noticed that two of the features we are mapping have empty
@@ -67,6 +89,15 @@ Currently, the myFilter function contains only:
 Since it always returns true, it will add each feature to the map. Modify the
 code so it only adds features to the map if they have a collection day (not an
 empty string).
+
+===================== */
+
+var myFilter = function(feature) {
+  if (feature.properties.COLLDAY != false) {return true;}
+  else {return false;}
+};
+
+/* =====================
 
 ## Task 4
 
@@ -90,6 +121,23 @@ layer.on('click', function (e) {
 That part sets up a click event on each feature. Any code inside that second
 block of code will happen each time a feature is clicked.
 
+===================== */
+
+var eachFeatureFunction = function(layer) {
+  layer.on('click', function (event) {
+    let day = days[layer.feature.properties.COLLDAY].full;
+    showResults(day);
+  });
+};
+
+var showResults = function(day) {
+  $('#intro').hide();
+  $('.day-of-week').text(day);
+  $('#results').show();
+};
+
+/* =====================
+
 ## Task 5
 
 Create a legend for the map. You do not need to use Javascript. You can use HTML
@@ -98,6 +146,21 @@ to each box. Position the legend on top of the map (hint: you can use absolute
 positioning, which is the technique used to position the sidebar and map on this
 page).
 
+===================== */
+
+var legend = function() {
+  Object.keys(days).forEach(day => {
+    $('.legend').append(`
+      <tr class="${day}">
+        <td>${days[day].full}</td>
+        <td class="key" style="background-color:${days[day].color};"></td>
+      </tr>
+    `)
+  });
+}
+
+/* =====================
+
 ## Task 6 (Stretch goal)
 
 Let's associate the leaflet ID (we can use this to look up a leaflet layer) with
@@ -105,11 +168,32 @@ our HTML element. Try to use the `getLayerId` method of `L.FeatureGroup` and
 `L.LayerGroup` (on myFeatureGroup) below.
 With it, add the Leaflet ID to the information provided on the left.
 
+===================== */
+
+var task6 = function(layer) {
+  layer.on('click', function (event) {
+    $('.lid').remove();
+    $('#results').append(`<p class="lid">Leaflet ID: ${layer._leaflet_id}</p>`);
+  });
+};
+
+/* =====================
+
 ## Task 7 (Stretch Goal)
 
 Use fitBounds (http://leafletjs.com/reference.html#map-fitbounds) to zoom in and
 center the map on one particular feature. To find the bounds for a feature, use
 event.target.getBounds() inside of the layer.on function.
+
+===================== */
+
+var task7 = function(layer) {
+  layer.on('click', function (event) {
+    map.fitBounds(layer.getBounds());
+  });
+};
+
+/* =====================
 
 ## Task 8 (Stretch Goal)
 
@@ -117,6 +201,22 @@ Add a "Close" or "X" button to the top right of your sidebar. When when the
 button is clicked, call a function closeResults that performs the opposite
 processes as showResults, returning the user to the original state of the
 application.
+
+===================== */
+
+var close = function() {
+  $('#results').prepend(
+    '<div class="close">╳</div>'
+  )
+  $('.close').on('click',function() {
+      console.log("click");
+      $('#intro').show();
+      $('#results').hide();
+      map.fitBounds(featureGroup.getBounds());
+  });
+};
+
+/* =====================
 
 ## Task 9 (Stretch Goal)
 
@@ -126,43 +226,17 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
-var featureGroup
-
-var myStyle = function(feature) {
-  return {};
-};
-
-var showResults = function() {
-  /* =====================
-  This function uses some jQuery methods that may be new. $(element).hide()
-  will add the CSS "display: none" to the element, effectively removing it
-  from the page. $(element).show() removes "display: none" from an element,
-  returning it to the page. You don't need to change this part.
-  ===================== */
-  // => <div id="intro" css="display: none">
-  $('#intro').hide();
-  // => <div id="results">
-  $('#results').show();
-};
-
-
-var eachFeatureFunction = function(layer) {
-  layer.on('click', function (event) {
-    /* =====================
-    The following code will run every time a layer on the map is clicked.
-    Check out layer.feature to see some useful data about the layer that
-    you can use in your application.
-    ===================== */
-    console.log(layer.feature);
-    showResults();
+var task9 = function() {
+  Object.keys(days).forEach(function(day) {
+    days[day].count = 0;
   });
+  featureGroup.eachLayer(function(layer) {
+    days[layer.feature.properties.COLLDAY].count += 1;
+  });
+  console.log(days);
 };
 
-var myFilter = function(feature) {
-  return true;
-};
-
+var featureGroup;
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
     var parsedData = JSON.parse(data);
@@ -172,6 +246,13 @@ $(document).ready(function() {
     }).addTo(map);
 
     // quite similar to _.each
-    featureGroup.eachLayer(eachFeatureFunction);
+    featureGroup.eachLayer(function(layer) {
+      eachFeatureFunction(layer);
+      task6(layer);
+      task7(layer);
+    });
+    legend();
+    close();
+    task9();
   });
 });

@@ -11,7 +11,7 @@ p.main {
 .map {
     position: absolute;
     right: 0px;
-    left: 400px;
+    left: 300px;
     height: 100%;
     top: 0;
 }
@@ -19,7 +19,7 @@ p.main {
 .sidebar {
     position: absolute;
     left: 0px;
-    width: 400px;
+    width: 300px;
     top: 0;
     bottom: 0;
     overflow-y: auto;
@@ -29,6 +29,28 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
   z-index: 2000;
+  display:table;
+  bottom:40px;
+  right:20px;
+  border-collapse:collapse;
+  font-weight:bold;
+}
+
+.legend td {padding:5px;}
+
+.key {
+  width: 27px;
+  height: 27px;
+  border: 3px solid black;
+  border-collapse:collapse;
+  border-spacing:0;
+  opacity:0.25;
+}
+
+.close {
+  cursor:pointer;
+  float:right;
+  line-height:37px;
+  width:37px;
 }
