@@ -53,13 +53,16 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 // iterating over each marker  using map.removeLayer(point)
 
 
-// markers = squaresJson.map((point) => {
-//   return L.marker([point.LAT, point.LNG]).addTo(map);
-// })
+var markers = squaresJson.map((point) => {
+  return L.marker([point.LAT, point.LNG]).addTo(map);
+});
+
+// markers.forEach(function(marker) {map.removeLayer(marker)})
 //
 //
-// markers.forEach((point) => {
-//   map.removeLayer(point)})
+
+markers.forEach((point) => {
+  map.removeLayer(point)})
 
 
 
@@ -79,31 +82,39 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 
 // task 2.1 - add squares.geojson to the map
-//  Try: L.geoJSON().addTo(map);
+var layer = L.geoJSON(squaresGeoJson).addTo(map);
 
 
 // task 2.2 - remove squares.geojson from the map
-// Try: map.removeLayer()
+map.removeLayer(layer);
 
 
 
 // task 3 - filter by some property on squares.geojson
 
 
-// L.geoJSON(squaresGeoJson, {
-//     filter: function(feature) {
-//         return feature.properties.DOB_NAMESAKE == 1674;
-//     }
-// }).addTo(map);
+var layer2= L.geoJSON(squaresGeoJson, {
+    filter: function(feature) {
+        return feature.properties.INDEGO_STATION == false;
+    }
+}).addTo(map);
 
-
+map.removeLayer(layer2);
 
 
 // task 4.1 - add squaresPoly.geojson to the map
+var layerPoly = L.geoJSON(squaresPoly).addTo(map);
+
 // task 4.2 - add conditional coloring to squaresPoly.geojson
-
-
-
+//This function works with geojson file, but not works with layer you created
+L.geoJSON(squaresPoly, {
+    style: function(feature) {
+        switch (feature.properties.TYPE) {
+            case 'circle': return {color: "#ff0000"};
+            case 'square':   return {color: "#0000ff"};
+        }
+    }
+}).addTo(map);
 
 // task 5 - add two buttons to the sidebar from javascript using jquery: (1) add layer (2) remove layer
 
@@ -114,12 +125,12 @@ $('<br><input type="button" id="btnToRemove" value="remove" />').appendTo($(".si
 
 
 $( "#btnToAdd" ).click(function() {
-  layer.addTo(map);
+  layer2.addTo(map);
 });
 
 
 $( "#btnToRemove" ).click(function() {
-  map.removeLayer(layer);
+  map.removeLayer(layer2);
 });
 
 
@@ -137,7 +148,7 @@ $( "#btnToRemove" ).click(function() {
 
 var myStyle = function(feature) {
   if (feature.properties.INDEGO_STATION == true) {
-    console.log("trues")
+    console.log("trues");
   return {fillColor: 'green'};
-} else return {fillColor: 'red'}
+} else return {fillColor: 'red'};
 };

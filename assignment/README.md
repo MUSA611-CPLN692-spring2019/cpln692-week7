@@ -21,13 +21,13 @@ for a few potential sources)
 #### Data Requirements
 
 - At least fifteen data points
-- At least one property that can be used to filter the data and color the data
+- At least one property that can be used to filter the data and color the data (e.g., poverty line, call the five highest income)
 - Use the GeoJSON format (pre-convert to geojson if necessary)
 - Points, lines, and polygons are all fine
 - Data should be real stuff (don't create a dataset with fictional locations)
 
 
-### Task 2: Think About Slide Data
+### Task 2: Think About Slide Data (>=3)
 
 Your story will have multiple slides, each with a title, some additional text,
 and geographic data. It might also need to contain information about how you will
@@ -94,5 +94,3 @@ about the work they do, we should try to apply some of that knowledge.
 In preparation for the midterm, mock out the design of your midterm
 application to whatever level of detail you believe will be helpful as
 you go about writing code for the actual assignment.
-
-

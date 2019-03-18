@@ -29,6 +29,105 @@ p.main {
 
 .legend {
   position: absolute;
+  top:30px;
   background-color: #fff;
   z-index: 2000;
+}
+
+.main{
+  width: 400px;
+}
+
+.legendText {
+  position: absolute;
+  left: 500px;
+  top: 30px;
+  line-height: 60px
+  padding: 10px;
+  z-index: 2000;
+}
+
+#MON {
+  position: absolute;
+  width:40px;
+  height:20px;
+  background-color: red;
+  left: 460px;
+  top: 0px;
+}
+
+#MONText {
+  position: absolute;
+  width:60px;
+  height:20px;
+  left: 10px;
+  top: 0px;
+}
+
+#TUE {
+  position: absolute;
+  width:40px;
+  height:20px;
+  background-color: #01B6AD;
+  left: 460px;
+  top: 30px;
+}
+#TUEText {
+  position: absolute;
+  width:60px;
+  height:20px;
+  left: 10px;
+  top: 30px;
+}
+
+#WED {
+  position: absolute;
+  width:40px;
+  height:20px;
+  background-color: #FFCC33;
+  left: 460px;
+  top: 60px;
+}
+#WEDText {
+  position: absolute;
+  width:60px;
+  height:20px;
+  left: 10px;
+  top: 60px;
+}
+
+#THU {
+  position: absolute;
+  width:40px;
+  height:20px;
+  background-color: #8592ac;
+  left: 460px;
+  top: 90px;
+}
+#THUText {
+  position: absolute;
+  width:60px;
+  height:20px;
+  left: 10px;
+  top: 90px;
+}
+
+#FRI {
+  position: absolute;
+  width:40px;
+  height:20px;
+  background-color: #9dd7d5;
+  left: 460px;
+  top: 120px;
+}
+#FRIText {
+  position: absolute;
+  width:60px;
+  height:20px;
+  left: 10px;
+  top: 120px;
+}
+
+.day-of-week{
+  color:black;
 }
