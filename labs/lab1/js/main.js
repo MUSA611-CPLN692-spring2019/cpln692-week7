@@ -48,10 +48,15 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 // Task 1.1 - add the five markers from squares.json to the map using the methods
 // we've used so far in class: _.map or _.each, forEach()
 
+ addmarkers = _.map(squaresJson,function(x){
+ return L.marker([x.LAT,x.LNG]).addTo(map);
+});
 
 // Task 1.2 - remove squares.json from the map
 // iterating over each marker  using map.removeLayer(point)
-
+_.forEach(addmarkers,function(i){
+  map.removeLayer(i)
+});
 
 // markers = squaresJson.map((point) => {
 //   return L.marker([point.LAT, point.LNG]).addTo(map);
@@ -80,15 +85,22 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 // task 2.1 - add squares.geojson to the map
 //  Try: L.geoJSON().addTo(map);
-
+geolayer = L.geoJSON(squaresGeoJson).addTo(map);
 
 // task 2.2 - remove squares.geojson from the map
 // Try: map.removeLayer()
 
+map.removeLayer(geolayer);
+
 
 
 // task 3 - filter by some property on squares.geojson
-
+// filter by if there is a indego station
+ L.geoJSON(squaresGeoJson, {
+  filter: function(feature) {
+       return feature.properties.INDEGO_STATION == true ;
+    }
+ }).addTo(map);
 
 // L.geoJSON(squaresGeoJson, {
 //     filter: function(feature) {
@@ -101,8 +113,13 @@ https://medium.com/@sumit.arora/what-is-geojson-geojson-basics-visualize-geojson
 
 // task 4.1 - add squaresPoly.geojson to the map
 // task 4.2 - add conditional coloring to squaresPoly.geojson
+polylayer = L.geoJSON(squaresPoly).addTo(map);
 
-
+polylayer.setStyle(function(poly) {
+  if (poly.properties.TYPE === "circle") {
+    return {color:'white', fillColor: 'grey'};}
+    else return {color:'white',fillColor: 'red'}
+});
 
 
 // task 5 - add two buttons to the sidebar from javascript using jquery: (1) add layer (2) remove layer
@@ -114,12 +131,12 @@ $('<br><input type="button" id="btnToRemove" value="remove" />').appendTo($(".si
 
 
 $( "#btnToAdd" ).click(function() {
-  layer.addTo(map);
+  polylayer.addTo(map);
 });
 
 
 $( "#btnToRemove" ).click(function() {
-  map.removeLayer(layer);
+  map.removeLayer(polylayer);
 });
 
 

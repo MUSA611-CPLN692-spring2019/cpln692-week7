@@ -29,6 +29,48 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  background-color: #fff6;
   z-index: 2000;
+  bottom: 10px;
+  right: 0;
+  margin: 10px;
+}
+
+#legendname{
+  margin-top: 0;
+  margin-bottom: 10px;
+  position: relative;
+  font-size: 20px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+li::before {
+  padding-right: 10px;
+  content: "\25A0";
+  font-size: 1.5em;
+  opacity: .5;
+}
+
+#MON::before {
+  color: green;
+}
+
+#TUE::before {
+  color: blue;
+}
+
+#WED::before {
+  color:red;
+}
+
+#THU::before {
+  color: yellow;
+}
+
+#FRI::before {
+  color:purple;
 }
