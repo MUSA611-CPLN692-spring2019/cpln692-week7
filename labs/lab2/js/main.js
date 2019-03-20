@@ -126,14 +126,21 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup
 
 var myStyle = function(feature) {
-  return {};
+    switch(feature.properties.COLLDAY) {
+    case 'MON': return {fillColor: 'green'};
+    case 'TUE': return {fillColor: 'blue'};
+    case 'WED': return {fillColor: 'red'};
+    case 'THU': return {fillColor: 'yellow'};
+    case 'FRI': return {fillColor: 'purple'};
+    default: return {fillColor: 'grey'};
+  };
 };
 
-var showResults = function() {
+var showResults = function(feature) {
   /* =====================
   This function uses some jQuery methods that may be new. $(element).hide()
   will add the CSS "display: none" to the element, effectively removing it
@@ -144,8 +151,20 @@ var showResults = function() {
   $('#intro').hide();
   // => <div id="results">
   $('#results').show();
+  $('.day-of-week').text(feature);
 };
 
+var DayofWeek = function(feature) {
+  switch (feature.properties.COLLDAY) {
+    case "MON": return "Monday";
+    case "TUE": return "Tuesday";
+    case "WED": return "Wednesday";
+    case "THU": return "Thursday";
+    case "FRI": return "Friday";
+    case "SAT": return "Saturday";
+    case "SUN": return "Sunday";
+  }
+};
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
@@ -155,7 +174,7 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
-    showResults();
+    showResults(DayofWeek(layer.feature));
   });
 };
 
