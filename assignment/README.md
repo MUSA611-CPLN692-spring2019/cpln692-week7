@@ -94,5 +94,3 @@ about the work they do, we should try to apply some of that knowledge.
 In preparation for the midterm, mock out the design of your midterm
 application to whatever level of detail you believe will be helpful as
 you go about writing code for the actual assignment.
-
-

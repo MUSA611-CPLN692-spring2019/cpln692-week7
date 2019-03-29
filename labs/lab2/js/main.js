@@ -126,11 +126,39 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
-var featureGroup
+//Task 1 Load the dataset
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
+var featureGroup;
 
+//Task 2 Choropleth map
 var myStyle = function(feature) {
-  return {};
+  switch(feature.properties.COLLDAY) {
+    case 'MON': return{
+      fillColor: '#e60012',
+      color: '#e60012',
+      fillOpacity: 0.8
+    };
+    case 'TUE': return{
+      fillColor: '#f68b22',
+      color: '#f68b22',
+      fillOpacity: 0.8
+    };
+    case 'WED': return{
+      fillColor: '#f6d122',
+      color: '#f6d122',
+      fillOpacity: 0.8
+    };
+    case 'THU': return{
+      fillColor: '#6cb931',
+      color: '#6cb931',
+      fillOpacity: 0.8
+    };
+    case 'FRI': return{
+      fillColor: '#31b9aa',
+      color: '#31b9aa',
+      fillOpacity: 0.8
+    };
+  }
 };
 
 var showResults = function() {
@@ -147,25 +175,20 @@ var showResults = function() {
 };
 
 
-var eachFeatureFunction = function(layer) {
-  layer.on('click', function (event) {
-    /* =====================
-    The following code will run every time a layer on the map is clicked.
-    Check out layer.feature to see some useful data about the layer that
-    you can use in your application.
-    ===================== */
-    console.log(layer.feature);
-    showResults();
-  });
+//Task 3 Filter data
+var myFilter = function(feature) {
+  if(feature.properties.COLLDAY === ''){
+    return false;
+  } else {
+    return true;
+  }
 };
 
-var myFilter = function(feature) {
-  return true;
-};
+var parsedData;
 
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
-    var parsedData = JSON.parse(data);
+    parsedData = JSON.parse(data);
     featureGroup = L.geoJson(parsedData, {
       style: myStyle,
       filter: myFilter
@@ -175,3 +198,30 @@ $(document).ready(function() {
     featureGroup.eachLayer(eachFeatureFunction);
   });
 });
+
+//Task 4 Click to show information
+
+var eachFeatureFunction = function(layer) {
+  layer.on('click', function (event) {
+    /* =====================
+    The following code will run every time a layer on the map is clicked.
+    Check out layer.feature to see some useful data about the layer that
+    you can use in your application.
+    ===================== */
+    switch (layer.feature.properties.COLLDAY) {
+      case 'MON': $('.day-of-week').text("Monday");
+      break;
+      case 'TUE': $('.day-of-week').text("Tuesday");
+      break;
+      case 'WED': $('.day-of-week').text("Wednesday");
+      break;
+      case 'THU': $('.day-of-week').text("Thursday");
+      break;
+      case 'FRI': $('.day-of-week').text("Friday");
+      break;//what if no break?
+      default: $('.day-of-week').text("Not Identified");
+    }
+    console.log(layer.feature);
+    showResults();
+  });
+};

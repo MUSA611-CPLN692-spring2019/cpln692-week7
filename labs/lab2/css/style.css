@@ -31,4 +31,53 @@ p.main {
   position: absolute;
   background-color: #fff;
   z-index: 2000;
+  left: 450px;
+  top: 16px;
+}
+
+.legendText {
+  position: absolute;
+  background-color: #dcdcdc;
+  z-index: 2000;
+  left: 500px;
+  top: 82px;
+}
+
+#MON {
+  width: 40px;
+  height: 13px;
+  background-color: rgba(230,0,18,0.8);
+  border: 2px solid #e60012;
+}
+
+#TUE {
+  width: 40px;
+  height: 13px;
+  background-color: rgba(246,139,34,0.8);
+  border: 2px solid #f68b22;
+  margin-top:6px;
+}
+
+#WED {
+  width: 40px;
+  height: 13px;
+  background-color: rgba(246,209,34,0.8);
+  border: 2px solid #f6d122;
+  margin-top:6px;
+}
+
+#THU {
+  width: 40px;
+  height: 13px;
+  background-color: rgba(108,185,49,0.8);
+  border: 2px solid #6cb931;
+  margin-top:6px;
+}
+
+#FRI {
+  width: 40px;
+  height: 13px;
+  background-color: rgba(49,185,170,0.8);
+  border: 2px solid #31b9aa;
+  margin-top:6px;
 }
